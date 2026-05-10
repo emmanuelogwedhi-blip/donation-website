@@ -391,7 +391,7 @@
     try{
 
       const response = await fetch(
-        "http://localhost:5000/donate",
+        "https://donation-website-xm7u.onrender.com/donate",
         {
           method:"POST",
 
@@ -433,7 +433,7 @@
       console.log(error);
 
       alert(
-        "Server not connected. Make sure node server.js is running."
+        "Server not connected."
       );
 
     }
