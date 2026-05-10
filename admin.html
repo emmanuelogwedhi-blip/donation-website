@@ -3,138 +3,139 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Donation Admin Dashboard</title>
+  <title>Admin Dashboard</title>
 
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f7fb;
-      padding: 30px;
-      margin: 0;
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial,sans-serif;
     }
 
-    .container {
-      max-width: 1100px;
-      margin: auto;
+    body{
+      background:#f4f7fb;
+      padding:30px;
     }
 
-    .header {
-      background: linear-gradient(135deg,#064e3b,#14b8a6);
-      color: white;
-      padding: 25px;
-      border-radius: 14px;
-      margin-bottom: 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    h1{
+      color:#0f766e;
+      margin-bottom:25px;
+      text-align:center;
     }
 
-    .logout-btn {
-      background: white;
-      color: #0f766e;
-      border: none;
-      padding: 10px 16px;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
+    .dashboard{
+      max-width:1200px;
+      margin:auto;
     }
 
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
-      gap: 20px;
-      margin-bottom: 25px;
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:20px;
+      margin-bottom:30px;
     }
 
-    .card {
-      background: white;
-      padding: 22px;
-      border-radius: 14px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    .card{
+      background:white;
+      padding:25px;
+      border-radius:15px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.08);
     }
 
-    .card h3 {
-      color: #0f766e;
-      margin-bottom: 10px;
+    .card h2{
+      color:#0f766e;
+      margin-bottom:10px;
     }
 
-    table {
-      width: 100%;
-      background: white;
-      border-collapse: collapse;
-      border-radius: 14px;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    .card p{
+      font-size:28px;
+      font-weight:bold;
     }
 
-    th, td {
-      padding: 14px;
-      border-bottom: 1px solid #ddd;
-      text-align: left;
+    table{
+      width:100%;
+      border-collapse:collapse;
+      background:white;
+      border-radius:15px;
+      overflow:hidden;
+      box-shadow:0 4px 12px rgba(0,0,0,0.08);
     }
 
-    th {
-      background: #ecfeff;
-      color: #0f766e;
+    th,
+    td{
+      padding:15px;
+      border-bottom:1px solid #eee;
+      text-align:left;
     }
 
-    .success {
-      color: green;
-      font-weight: bold;
+    th{
+      background:#0f766e;
+      color:white;
     }
 
-    .pending {
-      color: orange;
-      font-weight: bold;
+    tr:hover{
+      background:#f9fafb;
     }
 
-    .failed {
-      color: red;
-      font-weight: bold;
+    .refresh-btn{
+      margin-bottom:20px;
+      padding:12px 20px;
+      border:none;
+      background:#14b8a6;
+      color:white;
+      border-radius:10px;
+      cursor:pointer;
+      font-size:16px;
+      font-weight:bold;
     }
 
-    .btn {
-      display: inline-block;
-      margin-top: 20px;
-      background: #0f766e;
-      color: white;
-      padding: 12px 18px;
-      text-decoration: none;
-      border-radius: 8px;
+    .refresh-btn:hover{
+      background:#0f766e;
     }
+
+    @media(max-width:768px){
+
+      table{
+        display:block;
+        overflow-x:auto;
+      }
+
+    }
+
   </style>
+
 </head>
 
 <body>
 
-<div class="container">
+<div class="dashboard">
 
-  <div class="header">
-    <div>
-      <h1>Donation Admin Dashboard</h1>
-      <p>Live donation monitoring system</p>
-    </div>
+  <h1>Donation Admin Dashboard</h1>
 
-    <button class="logout-btn" onclick="logout()">
-      Logout
-    </button>
-  </div>
+  <button
+    class="refresh-btn"
+    onclick="loadDonations()"
+  >
+    Refresh Donations
+  </button>
 
-  <div class="cards">
+  <div class="stats">
 
     <div class="card">
-      <h3>Total Donations</h3>
-      <h2 id="totalAmount">KSh 0</h2>
-    </div>
-
-    <div class="card">
-      <h3>Total Donors</h3>
-      <h2 id="totalDonors">0</h2>
+      <h2>Total Donations</h2>
+      <p id="totalDonations">0</p>
     </div>
 
     <div class="card">
-      <h3>Last Donor</h3>
-      <h2 id="lastDonor">None</h2>
+      <h2>Total Amount</h2>
+      <p id="totalAmount">KSh 0</p>
+    </div>
+
+    <div class="card">
+      <h2>Supporters</h2>
+      <p id="supporters">0</p>
     </div>
 
   </div>
@@ -142,117 +143,91 @@
   <table>
 
     <thead>
+
       <tr>
+
         <th>Name</th>
         <th>Phone</th>
         <th>Amount</th>
-        <th>Status</th>
-        <th>Receipt</th>
+        <th>Message</th>
         <th>Date</th>
+
       </tr>
+
     </thead>
 
     <tbody id="donationTable">
-      <tr>
-        <td colspan="6">No donations yet</td>
-      </tr>
+
     </tbody>
 
   </table>
-
-  <a href="index.html" class="btn">
-    Back to Donation Page
-  </a>
 
 </div>
 
 <script>
 
-  if(localStorage.getItem("adminLoggedIn") !== "true"){
-    window.location.href = "login.html";
-  }
-
-  function logout(){
-    localStorage.removeItem("adminLoggedIn");
-    window.location.href = "login.html";
-  }
-
   async function loadDonations(){
 
     try{
 
-      const response = await fetch("http://localhost:5000/donations");
+      const response = await fetch(
+        "https://donation-website-xm7u.onrender.com/donations"
+      );
+
       const donations = await response.json();
 
-      const table = document.getElementById("donationTable");
-      const totalAmount = document.getElementById("totalAmount");
-      const totalDonors = document.getElementById("totalDonors");
-      const lastDonor = document.getElementById("lastDonor");
+      const table =
+        document.getElementById("donationTable");
 
       table.innerHTML = "";
 
-      if(donations.length === 0){
+      let totalAmount = 0;
 
-        table.innerHTML = `
-          <tr>
-            <td colspan="6">No donations yet</td>
-          </tr>
-        `;
+      donations.forEach(donation => {
 
-        totalAmount.textContent = "KSh 0";
-        totalDonors.textContent = "0";
-        lastDonor.textContent = "None";
+        totalAmount += Number(donation.amount);
 
-        return;
-      }
-
-      let total = 0;
-
-      donations.forEach((donation)=>{
-
-        total += donation.amount;
-
-        let statusClass = "pending";
-
-        if(donation.status === "Successful"){
-          statusClass = "success";
-        }
-
-        if(donation.status === "Failed"){
-          statusClass = "failed";
-        }
-
-        table.innerHTML += `
+        const row = `
           <tr>
             <td>${donation.name}</td>
             <td>${donation.phone}</td>
             <td>KSh ${donation.amount}</td>
-            <td class="${statusClass}">
-              ${donation.status}
-            </td>
-            <td>${donation.receipt}</td>
-            <td>${donation.date}</td>
+            <td>${donation.message || "-"}</td>
+            <td>${new Date(
+              donation.date
+            ).toLocaleString()}</td>
           </tr>
         `;
 
+        table.innerHTML += row;
+
       });
 
-      totalAmount.textContent = "KSh " + total;
-      totalDonors.textContent = donations.length;
-      lastDonor.textContent =
-        donations[donations.length - 1].name;
+      document.getElementById(
+        "totalDonations"
+      ).innerText = donations.length;
+
+      document.getElementById(
+        "totalAmount"
+      ).innerText = "KSh " + totalAmount;
+
+      document.getElementById(
+        "supporters"
+      ).innerText = donations.length;
 
     }catch(error){
 
       console.log(error);
+
+      alert(
+        "Failed to load donations."
+      );
 
     }
 
   }
 
   loadDonations();
-
-  setInterval(loadDonations,3000);
 
 </script>
 
