@@ -1,7 +1,7 @@
 {
   "name": "donation-website",
   "version": "1.0.0",
-  "description": "Donation website with M-Pesa Daraja sandbox integration",
+  "description": "Donation website with M-Pesa and MongoDB",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
@@ -10,6 +10,7 @@
     "axios": "^1.7.9",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
-    "express": "^4.21.2"
+    "express": "^4.21.2",
+    "mongoose": "^8.9.5"
   }
 }
