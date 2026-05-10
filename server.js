@@ -147,6 +147,12 @@ app.post("/callback", (req, res) => {
 
 });
 
+app.use((req, res) => {
+  res.status(404).sendFile(
+    path.join(__dirname, "404.html")
+  );
+});
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
