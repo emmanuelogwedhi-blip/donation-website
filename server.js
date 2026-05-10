@@ -79,7 +79,8 @@ app.post("/donate", async (req, res) => {
         PartyA: phone,
         PartyB: process.env.SHORTCODE,
         PhoneNumber: phone,
-        CallBackURL: "https://yourdomain.com/callback",
+        CallBackURL:
+          "https://donation-website-xm7u.onrender.com/callback",
         AccountReference: "Donation",
         TransactionDesc: "Donation Payment"
       },
@@ -97,10 +98,17 @@ app.post("/donate", async (req, res) => {
       amount,
       message,
       status: "Pending",
+      checkoutRequestID:
+        response.data.CheckoutRequestID,
+      merchantRequestID:
+        response.data.MerchantRequestID,
       date: new Date()
     });
 
-    console.log("M-Pesa response:", response.data);
+    console.log(
+      "M-Pesa response:",
+      response.data
+    );
 
     res.json(response.data);
 
@@ -121,8 +129,28 @@ app.post("/donate", async (req, res) => {
 
 });
 
+app.post("/callback", (req, res) => {
+
+  console.log(
+    "M-Pesa Callback Received:"
+  );
+
+  console.log(
+    JSON.stringify(req.body, null, 2)
+  );
+
+  res.json({
+    ResultCode: 0,
+    ResultDesc:
+      "Callback received successfully"
+  });
+
+});
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(
+    `Server running on port ${PORT}`
+  );
 });
