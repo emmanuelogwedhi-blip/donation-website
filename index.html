@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hope Donation Fund</title>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial,sans-serif;
+    }
+
+    body{
+      background:#f4f7fb;
+      color:#222;
+    }
+
+    nav{
+      background:#064e3b;
+      padding:18px 8%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      color:white;
+      position:sticky;
+      top:0;
+      z-index:1000;
+    }
+
+    nav h2{
+      font-size:28px;
+    }
+
+    .nav-links a{
+      color:white;
+      text-decoration:none;
+      margin-left:18px;
+      font-weight:bold;
+    }
+
+    .hero{
+      min-height:90vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      background:
+      linear-gradient(rgba(0,0,0,0.55),rgba(0,0,0,0.55)),
+      url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=1600&auto=format&fit=crop');
+      background-size:cover;
+      background-position:center;
+      color:white;
+      padding:20px;
+    }
+
+    .hero-content{
+      max-width:800px;
+    }
+
+    .hero h1{
+      font-size:60px;
+      margin-bottom:20px;
+    }
+
+    .hero p{
+      font-size:20px;
+      line-height:1.7;
+      margin-bottom:30px;
+    }
+
+    .hero-btn{
+      display:inline-block;
+      padding:16px 28px;
+      background:#14b8a6;
+      color:white;
+      text-decoration:none;
+      border-radius:10px;
+      font-size:18px;
+      font-weight:bold;
+    }
+
+    .container{
+      width:90%;
+      max-width:1100px;
+      margin:40px auto;
+    }
+
+    .card{
+      background:white;
+      padding:30px;
+      border-radius:18px;
+      margin-bottom:25px;
+      box-shadow:0 5px 15px rgba(0,0,0,0.08);
+    }
+
+    h2{
+      color:#0f766e;
+      margin-bottom:15px;
+    }
+
+    .progress-bar{
+      height:22px;
+      background:#ddd;
+      border-radius:20px;
+      overflow:hidden;
+      margin:14px 0;
+    }
+
+    .progress-fill{
+      width:45%;
+      height:100%;
+      background:#14b8a6;
+    }
+
+    .amounts{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+      gap:12px;
+      margin:20px 0;
+    }
+
+    .amounts button{
+      padding:14px;
+      border:2px solid #14b8a6;
+      background:white;
+      border-radius:10px;
+      cursor:pointer;
+      font-size:16px;
+      font-weight:bold;
+      color:#0f766e;
+    }
+
+    .amounts button:hover{
+      background:#14b8a6;
+      color:white;
+    }
+
+    input,
+    select,
+    textarea{
+      width:100%;
+      padding:15px;
+      margin:10px 0;
+      border:1px solid #ccc;
+      border-radius:10px;
+      font-size:16px;
+    }
+
+    textarea{
+      resize:none;
+      height:100px;
+    }
+
+    .donate-btn{
+      width:100%;
+      padding:16px;
+      border:none;
+      background:#0f766e;
+      color:white;
+      border-radius:10px;
+      font-size:18px;
+      font-weight:bold;
+      cursor:pointer;
+      margin-top:10px;
+    }
+
+    .donate-btn:hover{
+      background:#115e59;
+    }
+
+    .impact{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:20px;
+    }
+
+    .impact-box{
+      background:#ecfeff;
+      padding:25px;
+      border-radius:14px;
+      text-align:center;
+    }
+
+    footer{
+      background:#064e3b;
+      color:white;
+      text-align:center;
+      padding:25px;
+      margin-top:40px;
+    }
+
+    @media(max-width:768px){
+
+      .hero h1{
+        font-size:40px;
+      }
+
+      .hero p{
+        font-size:18px;
+      }
+
+      nav{
+        flex-direction:column;
+        gap:10px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+<nav>
+
+  <h2>HopeFund</h2>
+
+  <div class="nav-links">
+    <a href="#donate">Donate</a>
+    <a href="login.html">Admin</a>
+  </div>
+
+</nav>
+
+<section class="hero">
+
+  <div class="hero-content">
+
+    <h1>Together We Can Change Lives</h1>
+
+    <p>
+      Your support helps provide food, education,
+      healthcare and hope to vulnerable communities.
+      Every donation matters.
+    </p>
+
+    <a href="#donate" class="hero-btn">
+      Donate Now
+    </a>
+
+  </div>
+
+</section>
+
+<div class="container">
+
+  <section class="card">
+
+    <h2>Campaign Progress</h2>
+
+    <p>
+      Help us reach our fundraising goal and support families in need.
+    </p>
+
+    <br>
+
+    <strong>
+      Raised: KSh 45,000 / Goal: KSh 100,000
+    </strong>
+
+    <div class="progress-bar">
+      <div class="progress-fill"></div>
+    </div>
+
+    <p>45% of target reached.</p>
+
+  </section>
+
+  <section class="card" id="donate">
+
+    <h2>Make a Donation</h2>
+
+    <div class="amounts">
+
+      <button onclick="setAmount(1)">KSh 1</button>
+      <button onclick="setAmount(100)">KSh 100</button>
+      <button onclick="setAmount(500)">KSh 500</button>
+      <button onclick="setAmount(1000)">KSh 1,000</button>
+
+    </div>
+
+    <form onsubmit="submitDonation(event)">
+
+      <input
+        type="text"
+        id="name"
+        placeholder="Your Full Name"
+        required
+      >
+
+      <input
+        type="tel"
+        id="phone"
+        placeholder="Phone e.g. 254708374149"
+        required
+      >
+
+      <input
+        type="number"
+        id="amount"
+        placeholder="Donation Amount"
+        required
+      >
+
+      <select id="method" required>
+        <option value="">Select Payment Method</option>
+        <option value="mpesa">M-Pesa</option>
+      </select>
+
+      <textarea
+        id="message"
+        placeholder="Optional Message"
+      ></textarea>
+
+      <button class="donate-btn" type="submit">
+        Donate Now
+      </button>
+
+    </form>
+
+  </section>
+
+  <section class="card">
+
+    <h2>How Your Donation Helps</h2>
+
+    <div class="impact">
+
+      <div class="impact-box">
+        <h3>Food Support</h3>
+        <p>
+          Providing meals and supplies to vulnerable families.
+        </p>
+      </div>
+
+      <div class="impact-box">
+        <h3>Education</h3>
+        <p>
+          Helping students access learning materials and school support.
+        </p>
+      </div>
+
+      <div class="impact-box">
+        <h3>Healthcare</h3>
+        <p>
+          Supporting community health programs and treatment.
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+</div>
+
+<footer>
+
+  <p>
+    © 2026 Hope Donation Fund. All Rights Reserved.
+  </p>
+
+</footer>
+
+<script>
+
+  function setAmount(value){
+    document.getElementById("amount").value = value;
+  }
+
+  async function submitDonation(event){
+
+    event.preventDefault();
+
+    const name =
+      document.getElementById("name").value;
+
+    const phone =
+      document.getElementById("phone").value;
+
+    const amount =
+      document.getElementById("amount").value;
+
+    const message =
+      document.getElementById("message").value;
+
+    try{
+
+      const response = await fetch(
+        "http://localhost:5000/donate",
+        {
+          method:"POST",
+
+          headers:{
+            "Content-Type":"application/json"
+          },
+
+          body:JSON.stringify({
+            name,
+            phone,
+            amount,
+            message
+          })
+        }
+      );
+
+      const data = await response.json();
+
+      console.log(data);
+
+      if(data.ResponseCode === "0"){
+
+        alert(
+          "M-Pesa request sent successfully. Check your phone."
+        );
+
+      }else{
+
+        alert(
+          data.errorMessage ||
+          data.message ||
+          "M-Pesa request failed"
+        );
+
+      }
+
+    }catch(error){
+
+      console.log(error);
+
+      alert(
+        "Server not connected. Make sure node server.js is running."
+      );
+
+    }
+
+  }
+
+</script>
+
+</body>
+</html>
