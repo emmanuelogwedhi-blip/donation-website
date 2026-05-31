@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
 const path = require("path");
+const sendReceiptEmail = require("./email");
 require("dotenv").config();
 
 const app = express();
@@ -29,11 +30,8 @@ app.get("/donations", (req, res) => {
 });
 
 async function getAccessToken() {
-
   const auth = Buffer.from(
-    process.env.CONSUMER_KEY +
-    ":" +
-    process.env.CONSUMER_SECRET
+    process.env.CONSUMER_KEY + ":" + process.env.CONSUMER_SECRET
   ).toString("base64");
 
   const response = await axios.get(
@@ -49,15 +47,18 @@ async function getAccessToken() {
 }
 
 app.post("/donate", async (req, res) => {
-
   try {
-
-    const { name, phone, amount, message } = req.body;
+    const {
+      name,
+      phone,
+      amount,
+      message,
+      email
+    } = req.body;
 
     const accessToken = await getAccessToken();
 
-    const timestamp =
-      new Date()
+    const timestamp = new Date()
       .toISOString()
       .replace(/[-:TZ.]/g, "")
       .slice(0, 14);
@@ -95,6 +96,7 @@ app.post("/donate", async (req, res) => {
     donations.push({
       name,
       phone,
+      email,
       amount,
       message,
       status: "Pending",
@@ -105,32 +107,31 @@ app.post("/donate", async (req, res) => {
       date: new Date()
     });
 
-    console.log(
-      "M-Pesa response:",
-      response.data
-    );
+    await sendReceiptEmail({
+      email,
+      name,
+      amount,
+      phone
+    });
 
     res.json(response.data);
 
   } catch (error) {
 
     console.log(
-      "M-Pesa Error:",
       error.response?.data || error.message
     );
 
     res.status(500).json({
       errorMessage:
         error.response?.data?.errorMessage ||
-        "M-Pesa request failed"
+        error.message
     });
 
   }
-
 });
 
 app.post("/callback", (req, res) => {
-
   console.log(
     "M-Pesa Callback Received:"
   );
@@ -144,7 +145,6 @@ app.post("/callback", (req, res) => {
     ResultDesc:
       "Callback received successfully"
   });
-
 });
 
 app.use((req, res) => {
